@@ -1,0 +1,24 @@
+html { font-family: sans-serif;
+     background: #eee;
+     padding: 1rem; }
+body { max-width: 960px;
+     top:1.25em;
+     padding:0.5em;
+     position: relative;
+     background: white; }
+h1, h2 { font-family: serif;
+     color: #377ba8; margin:
+     1rem 0; }
+p { color: black; }
+
+/*************************************************************
+
+**************************************************************/
+/*the container must be positioned relative:*/
+.myDistricts {
+  background-color: yellow;
+  color: red;
+  font-size: 16pt;
+  height:50px;
+  width: auto;
+}

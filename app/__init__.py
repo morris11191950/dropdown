@@ -22,5 +22,7 @@ def create_app(config_name):
     from .home import home as home_blueprint
     app.register_blueprint(home_blueprint)
 
+    from .reference import reference as reference_blueprint
+    app.register_blueprint(reference_blueprint)
 
     return app

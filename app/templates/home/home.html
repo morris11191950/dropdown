@@ -1,19 +1,54 @@
 <!DOCTYPE html>
+<html>
 
-<html lang="en">
-<head>
-     <meta character="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <title>Document</title>
+     <head>
+          <title>Uranium Exploration </title>
+          <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <!-- <script src="{{ url_for('static', filename='js/jquery-3.3.1.js') }}"></script> -->
+     </head>
 
-</head>
-<body>
-     <form method="POST">
-          {{ form.csrf_token }}
-          {{ form.district }}
-          <input type="submit">
-     </form>
+     <body>
 
-</body>
+          <h1 id="myh1">Select a district from the list.</h1>
+
+          <select class="myDistricts">
+               {% for row in rows %}
+                    <option value={{row[0]}}>{{row[1]}}
+               {%  endfor %}
+          </select>
+
+          <ol id="myReferences"></ol>
+
+          <script>
+          $(document).ready(function() {
+
+               // $("#myh1").css({color:'red'});
+               // $("#myh1").html('jQuery changed me');
+
+               $("select.myDistricts").change(function() {
+                    var selected_id = $(this).children("option:selected").val();
+                    var selected_txt = $(this).children("option:selected").text();
+                    // alert(selected);
+                    $("#myh1").html("You selected: " + selected_id + "--" + selected_txt);
+
+               var $refs = $('#myReferences');
+               $.ajax({
+                  type: "GET",
+                  url: "http://127.0.0.1:5000/reference/" + selected_id,
+                  success: function(data) {
+                       console.log('Success', data);
+                       objects = JSON.parse(data.Refs)
+                       console.log(objects[0].reference);
+                       // debugger
+                       $.each(objects, function(i, object) {
+                             $refs.append('<li>' + object.reference + '</li>');
+                       });
+                    }
+                });
+            });
+          });
+          </script>
+
+     </body>
 </html>
